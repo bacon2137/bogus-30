@@ -48,23 +48,28 @@
         /* Hero: image + text side by side */
         .hero-row {
             display: flex;
-            gap: 24px;
-            align-items: flex-start;
+            gap: 28px;
+            align-items: stretch;
         }
         .hero-image {
             flex: 0 0 45%;
         }
         .hero-image img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 12px;
         }
         .hero-text {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .hero-text p {
             color: #333;
-            line-height: 1.7;
-            font-size: 0.92rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
 
         /* Progress */
