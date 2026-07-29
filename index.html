@@ -135,6 +135,31 @@
         }
         .gif-picker img:hover { transform: scale(1.05); }
         .gif-picker img.selected { border-color: #764ba2; }
+        .gif-search {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .gif-search input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #e9e3f0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        .gif-search input:focus { outline: none; border-color: #764ba2; }
+        .btn-gif-search {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .btn-gif-search:hover { opacity: 0.9; }
         .btn {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
@@ -217,13 +242,16 @@
             <form class="wish-form" id="wish-form">
                 <input type="text" id="wish-name" placeholder="Twoje imię" required>
                 <textarea id="wish-text" placeholder="Życzenia, wiadomość, cokolwiek chcesz 🙂"></textarea>
-                <p style="font-size:0.9rem; color:#666;">Wybierz GIF (opcjonalnie):</p>
-                <div class="gif-picker" id="gif-picker">
-                    <img src="https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif" alt="party" data-gif="https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif">
-                    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="cake" data-gif="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
-                    <img src="https://media.giphy.com/media/artj92V8o75VPL7AeQ/giphy.gif" alt="cheers" data-gif="https://media.giphy.com/media/artj92V8o75VPL7AeQ/giphy.gif">
-                    <img src="https://media.giphy.com/media/BPJmthQ3YRwD6QqcVD/giphy.gif" alt="birthday" data-gif="https://media.giphy.com/media/BPJmthQ3YRwD6QqcVD/giphy.gif">
-                    <img src="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif" alt="confetti" data-gif="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif">
+                <p style="font-size:0.9rem; color:#666;">Wyszukaj GIF (opcjonalnie):</p>
+                <div class="gif-search">
+                    <input type="text" id="gif-search-input" placeholder="Szukaj GIF np. urodziny, taniec, party...">
+                    <button type="button" class="btn-gif-search" id="gif-search-btn">Szukaj</button>
+                </div>
+                <div class="gif-picker" id="gif-picker"></div>
+                <div id="gif-selected-preview" style="display:none; margin:8px 0; text-align:center;">
+                    <p style="font-size:0.85rem; color:#764ba2; margin-bottom:4px;">Wybrany GIF:</p>
+                    <img id="gif-preview-img" style="max-width:120px; border-radius:8px;">
+                    <button type="button" id="gif-clear" style="display:block; margin:6px auto; background:none; border:none; color:#e8153a; cursor:pointer; font-size:0.85rem;">✕ Usuń</button>
                 </div>
                 <button type="submit" class="btn">Dodaj życzenia 🎈</button>
             </form>
@@ -256,19 +284,44 @@
         document.getElementById('progress-fill').textContent = pct + '%';
         document.getElementById('progress-text').textContent = collected + ' / ' + goal + ' zł';
 
-        // GIF picker
+        // GIF search via GIPHY
+        const GIPHY_KEY = 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65'; // public beta key
         let selectedGif = '';
-        document.querySelectorAll('.gif-picker img').forEach(img => {
-            img.addEventListener('click', () => {
-                document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
-                if (selectedGif === img.dataset.gif) {
-                    selectedGif = '';
-                } else {
-                    img.classList.add('selected');
+
+        async function searchGifs(query) {
+            const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=pg`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const picker = document.getElementById('gif-picker');
+            picker.innerHTML = data.data.map(g =>
+                `<img src="${g.images.fixed_height_small.url}" data-gif="${g.images.fixed_height.url}" alt="${g.title}">`
+            ).join('');
+            picker.querySelectorAll('img').forEach(img => {
+                img.addEventListener('click', () => {
                     selectedGif = img.dataset.gif;
-                }
+                    picker.querySelectorAll('img').forEach(i => i.classList.remove('selected'));
+                    img.classList.add('selected');
+                    document.getElementById('gif-selected-preview').style.display = 'block';
+                    document.getElementById('gif-preview-img').src = selectedGif;
+                });
             });
+        }
+
+        document.getElementById('gif-search-btn').addEventListener('click', () => {
+            const q = document.getElementById('gif-search-input').value.trim();
+            if (q) searchGifs(q);
         });
+        document.getElementById('gif-search-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') { e.preventDefault(); document.getElementById('gif-search-btn').click(); }
+        });
+        document.getElementById('gif-clear').addEventListener('click', () => {
+            selectedGif = '';
+            document.getElementById('gif-selected-preview').style.display = 'none';
+            document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
+        });
+
+        // Load trending on start
+        searchGifs('happy birthday');
 
         // Wishes - Firebase Realtime Database
         function escHtml(s) {
@@ -307,6 +360,7 @@
             document.getElementById('wish-name').value = '';
             document.getElementById('wish-text').value = '';
             selectedGif = '';
+            document.getElementById('gif-selected-preview').style.display = 'none';
             document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
         });
     </script>
