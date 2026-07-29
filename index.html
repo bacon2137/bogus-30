@@ -10,7 +10,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'DM Sans', sans-serif;
-            background: #1a1a1a url('img/bg.jpg') center/300px repeat fixed;
+            background: #1a1a1a url('img/bg.jpg') center/500px repeat fixed;
             min-height: 100vh;
             color: #1a1a1a;
         }
@@ -241,6 +241,7 @@
         .wish-card .wish-gif { margin-top: 10px; border-radius: 8px; max-width: 100%; display: block; }
 
         @media (max-width: 600px) {
+            body { background-size: 280px; }
             .hero-row { flex-direction: column; }
             .hero-image { flex: none; width: 100%; max-width: 220px; margin: 0 auto; }
             .wishes-list { columns: 2; }
