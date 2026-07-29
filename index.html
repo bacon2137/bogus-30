@@ -15,172 +15,111 @@
             color: #333;
         }
 
-        /* Slideshow */
-        .slideshow {
-            position: relative;
-            width: 100%;
-            height: 420px;
-            overflow: hidden;
-            background: #1a0533;
-        }
-        .slideshow img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .slideshow img.active { opacity: 1; }
-        .slideshow-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(26,5,51,0.85));
-            padding: 60px 20px 30px;
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a0533 0%, #3d1f6d 50%, #764ba2 100%);
+            padding: 48px 20px;
             text-align: center;
         }
-        .slideshow-overlay h1 {
+        .header h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.4rem;
             color: white;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
-        .slideshow-overlay p {
+        .header p {
             color: rgba(255,255,255,0.8);
             font-size: 1.1rem;
         }
-        .slide-dots {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 6px;
-        }
-        .slide-dots span {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            transition: background 0.3s;
-        }
-        .slide-dots span.active { background: white; }
-
-        /* Container */
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 28px 16px 40px;
-        }
-
-        /* Pot / Jar style */
-        .pot {
-            background: white;
-            border-radius: 24px;
-            padding: 32px 28px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 16px rgba(118,75,162,0.06);
-            border: 2px solid #ece7f3;
-            text-align: center;
-        }
-        .pot-header {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            color: #2d1354;
-            margin-bottom: 4px;
-        }
-        .pot-sub {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        /* Big progress jar */
-        .jar {
-            position: relative;
-            width: 160px;
-            height: 220px;
-            margin: 0 auto 20px;
-            border: 4px solid #d4c8e2;
-            border-radius: 12px 12px 24px 24px;
-            overflow: hidden;
-            background: #f8f4ff;
-        }
-        .jar-lid {
-            position: absolute;
-            top: -12px; left: -4px; right: -4px;
-            height: 16px;
-            background: #b89fd4;
-            border-radius: 6px 6px 0 0;
-            border: 4px solid #d4c8e2;
-        }
-        .jar-fill {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: linear-gradient(180deg, #a78bfa, #764ba2);
-            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 8px;
-        }
-        .jar-fill span {
-            color: white;
+        .header .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            color: #1a0533;
             font-weight: 800;
-            font-size: 1.2rem;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-        .jar-goal {
-            margin-top: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #2d1354;
-        }
-        .jar-goal small {
-            font-weight: 400;
-            color: #999;
-            font-size: 0.85rem;
+            font-size: 1rem;
+            padding: 6px 18px;
+            border-radius: 30px;
+            margin-top: 14px;
         }
 
-        /* Gift */
-        .gift-row {
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 32px 16px 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 16px rgba(118,75,162,0.06);
+            border: 1px solid #ece7f3;
+        }
+
+        /* Gift image */
+        .gift-hero {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .gift-hero img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 16px;
+        }
+
+        /* Description */
+        .description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .description strong { color: #2d1354; }
+
+        /* Progress bar horizontal */
+        .progress-section {
+            margin: 24px 0;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d1354;
+            font-size: 0.95rem;
+        }
+        .progress-bar {
+            background: #e9e3f0;
+            border-radius: 20px;
+            height: 30px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            gap: 16px;
-            text-align: left;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ece7f3;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            min-width: 40px;
         }
-        .gift-row img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 10px;
-            background: #f8f4ff;
-            padding: 4px;
-        }
-        .gift-row .gift-text h3 { font-size: 0.95rem; color: #2d1354; margin-bottom: 4px; }
-        .gift-row .gift-text p { font-size: 0.85rem; color: #777; line-height: 1.4; }
-
-        .deadline {
+        .progress-sub {
+            text-align: center;
             color: #aaa;
             font-size: 0.8rem;
-            margin-top: 16px;
+            margin-top: 10px;
         }
 
         /* Payment */
-        .payment-card {
-            background: white;
-            border-radius: 20px;
-            padding: 28px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 16px rgba(118,75,162,0.06);
-            border: 2px solid #ece7f3;
-            text-align: center;
-        }
+        .payment-card { text-align: center; }
         .payment-card h2 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #2d1354;
             margin-bottom: 16px;
         }
@@ -189,29 +128,20 @@
             background: linear-gradient(135deg, #d4145a, #ff4d6d);
             color: white;
             border-radius: 14px;
-            padding: 20px 32px;
-            margin-bottom: 12px;
+            padding: 20px 36px;
         }
         .blik-badge .label { font-size: 0.85rem; opacity: 0.9; }
         .blik-badge .phone {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 800;
             letter-spacing: 1px;
             margin-top: 4px;
         }
-        .payment-hint { color: #999; font-size: 0.82rem; }
+        .payment-hint { color: #999; font-size: 0.82rem; margin-top: 14px; }
 
         /* Wishes */
-        .wishes-card {
-            background: white;
-            border-radius: 20px;
-            padding: 28px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 16px rgba(118,75,162,0.06);
-            border: 2px solid #ece7f3;
-        }
         .wishes-card h2 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #2d1354;
             margin-bottom: 16px;
             text-align: center;
@@ -220,7 +150,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
         .wish-form input, .wish-form textarea {
             padding: 12px 16px;
@@ -286,16 +216,23 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(118,75,162,0.3); }
-        .wishes-list { display: flex; flex-direction: column; gap: 12px; }
+
+        /* Wishes grid - 3 columns */
+        .wishes-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
         .wish-card {
             background: #faf8fd;
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 14px;
             border: 1px solid #ece7f3;
+            word-break: break-word;
         }
-        .wish-card .wish-author { font-weight: 700; color: #764ba2; font-size: 0.9rem; margin-bottom: 4px; }
-        .wish-card .wish-text { color: #555; line-height: 1.5; font-size: 0.9rem; }
-        .wish-card .wish-gif { margin-top: 8px; border-radius: 8px; max-width: 150px; }
+        .wish-card .wish-author { font-weight: 700; color: #764ba2; font-size: 0.85rem; margin-bottom: 4px; }
+        .wish-card .wish-text { color: #555; line-height: 1.4; font-size: 0.82rem; }
+        .wish-card .wish-gif { margin-top: 8px; border-radius: 6px; max-width: 100%; }
 
         .footer {
             text-align: center;
@@ -304,71 +241,54 @@
             font-size: 0.75rem;
         }
 
-        @media (max-width: 600px) {
-            .slideshow { height: 300px; }
-            .slideshow-overlay h1 { font-size: 1.7rem; }
+        @media (max-width: 700px) {
+            .wishes-list { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.8rem; }
             .container { padding: 20px 12px 30px; }
-            .pot, .payment-card, .wishes-card { padding: 22px 18px; }
-            .jar { width: 130px; height: 180px; }
-            .blik-badge .phone { font-size: 1.3rem; }
-            .gift-row { flex-direction: column; text-align: center; }
+            .card { padding: 24px 18px; }
+            .wishes-list { grid-template-columns: 1fr; }
+            .blik-badge .phone { font-size: 1.4rem; }
+            .gift-hero img { max-height: 220px; }
         }
     </style>
 </head>
 <body>
-    <!-- Slideshow -->
-    <div class="slideshow" id="slideshow">
-        <img src="img/IMG_1666.jpeg" class="active" alt="">
-        <img src="img/IMG_5201.JPG" alt="">
-        <img src="img/IMG_1256.jpeg" alt="">
-        <img src="img/IMG_2773.jpeg" alt="">
-        <img src="img/IMG_9724.jpeg" alt="">
-        <img src="img/IMG_5012.jpeg" alt="">
-        <img src="img/IMG_0104-Enhanced-NR_Original.JPG" alt="">
-        <img src="img/IMG_6959_Original.JPG" alt="">
-        <img src="img/IMG_0506.jpeg" alt="">
-        <img src="img/IMG_6647.jpeg" alt="">
-        <img src="img/IMG_2628.jpeg" alt="">
-        <img src="img/IMG_9151.jpeg" alt="">
-        <img src="img/WhatsApp Image 2026-07-27 at 21.47.03.jpeg" alt="">
-        <img src="img/IMG_3176.jpeg" alt="">
-        <div class="slideshow-overlay">
-            <h1>Zrzutka na 30-stke Bogusia</h1>
-            <p>Zbieramy na prezent — dolacz sie!</p>
-        </div>
-        <div class="slide-dots" id="slide-dots"></div>
+    <div class="header">
+        <h1>Zrzutka na 30-stke Bogusia</h1>
+        <p>Wspomoz rozwijanie kulinarnych pasji!</p>
+        <span class="badge">30 lat!</span>
     </div>
 
     <div class="container">
-        <!-- Collection Pot -->
-        <div class="pot">
-            <div class="pot-header">Skarbonka</div>
-            <div class="pot-sub">Wrzuc ile mozesz — kazda zlotowka sie liczy!</div>
+        <!-- Gift image + description -->
+        <div class="card">
+            <div class="gift-hero">
+                <img src="img/prezent2.png" alt="Kenwood Titanium Chef Baker XL">
+            </div>
 
-            <div class="jar">
-                <div class="jar-lid"></div>
-                <div class="jar-fill" id="jar-fill">
-                    <span id="jar-pct">0%</span>
+            <p class="description">
+                Aby wspomoc rozwijanie pasji Bogusia, robimy zbiorke na <strong>robot planetarny</strong>, ktory posluzy mu do jeszcze lepszego wyrabiania ciasta i mielenia miesa na smash burgery.<br><br>
+                Zbiora co laska — tyle ile uwazacie za sluszne!<br><br>
+                Zachecamy do dodania zyczen, ktore znajda sie na kartce, lub wpisania w komentarzu swojej ulubionej kompozycji pizzy, ktora juz na nastepnej imprezie Boguslaw dla Ciebie ukreci 🍕
+            </p>
+
+            <!-- Progress bar -->
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Zebrano</span>
+                    <span id="progress-text">0 / 2500 zl</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%;">0%</div>
                 </div>
             </div>
-            <div class="jar-goal">
-                <span id="jar-amount">0</span> / 2500 zl
-                <br><small>cel: Kenwood + maszynka do miesa</small>
-            </div>
-
-            <div class="gift-row">
-                <img src="https://www.kenwood-world.com/medias/KVL85.004SI-front-800x600.png?context=bWFzdGVyfGltYWdlc3wxNTk5OTl8aW1hZ2UvcG5nfGFHWXlMMmhsT0M4eE5EQTBOVFkyTURnek1qZzRNaTlMVmt3NE5TNHdNRFJUU1Y5bWNtOXVkRjg0TURCNk5qQXdMbkJ1Wnd8YzRhZjgxMjRjNjg5N2IyZTQzMTQ2OGU3MDgwN2RhMzIyMTEzYjVjMjFhNWI3MDE4OGRiYWIzMzUwNjZkMzI0Yw" alt="Kenwood">
-                <div class="gift-text">
-                    <h3>Kenwood Titanium Chef Baker XL</h3>
-                    <p>KVL85.004SI + maszynka do miesa — profesjonalny sprzet dla naszego kucharza!</p>
-                </div>
-            </div>
-
-            <p class="deadline">Zbiorka do konca wrzesnia 2026</p>
+            <p class="progress-sub">Cel: Kenwood Titanium Chef Baker XL + maszynka do miesa (~2500 zl)</p>
         </div>
 
         <!-- Payment -->
-        <div class="payment-card">
+        <div class="card payment-card">
             <h2>Jak wplacic?</h2>
             <div class="blik-badge">
                 <div class="label">BLIK na numer</div>
@@ -378,14 +298,14 @@
         </div>
 
         <!-- Wishes -->
-        <div class="wishes-card">
-            <h2>Dodaj zyczenia</h2>
+        <div class="card wishes-card">
+            <h2>Dodaj zyczenia / komentarz</h2>
             <form class="wish-form" id="wish-form">
                 <input type="text" id="wish-name" placeholder="Twoje imie" required>
-                <textarea id="wish-text" placeholder="Zyczenia, wiadomosc..."></textarea>
+                <textarea id="wish-text" placeholder="Zyczenia, ulubiona pizza, cokolwiek..."></textarea>
                 <p style="font-size:0.85rem; color:#888;">Wyszukaj GIF (opcjonalnie):</p>
                 <div class="gif-search">
-                    <input type="text" id="gif-search-input" placeholder="np. urodziny, taniec, party...">
+                    <input type="text" id="gif-search-input" placeholder="np. urodziny, pizza, taniec...">
                     <button type="button" class="btn-gif-search" id="gif-search-btn">Szukaj</button>
                 </div>
                 <div class="gif-picker" id="gif-picker"></div>
@@ -405,27 +325,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script>
-        // Slideshow
-        const slides = document.querySelectorAll('.slideshow img');
-        const dotsContainer = document.getElementById('slide-dots');
-        let currentSlide = 0;
-
-        slides.forEach((_, i) => {
-            const dot = document.createElement('span');
-            if (i === 0) dot.classList.add('active');
-            dotsContainer.appendChild(dot);
-        });
-        const dots = dotsContainer.querySelectorAll('span');
-
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            dots[currentSlide].classList.remove('active');
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-        setInterval(() => showSlide(currentSlide + 1), 4000);
-
         // Firebase
         firebase.initializeApp({
             apiKey: "AIzaSyC0faHVaXm17aXOKHUlhqeLCPYoJbZ4a04",
@@ -444,30 +343,32 @@
         // ====================
 
         const pct = Math.min(Math.round((collected / goal) * 100), 100);
-        document.getElementById('jar-fill').style.height = pct + '%';
-        document.getElementById('jar-pct').textContent = pct + '%';
-        document.getElementById('jar-amount').textContent = collected;
+        document.getElementById('progress-fill').style.width = pct + '%';
+        document.getElementById('progress-fill').textContent = pct + '%';
+        document.getElementById('progress-text').textContent = collected + ' / ' + goal + ' zl';
 
         // GIF search
         const GIPHY_KEY = 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65';
         let selectedGif = '';
 
         async function searchGifs(query) {
-            const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=pg`);
-            const data = await res.json();
-            const picker = document.getElementById('gif-picker');
-            picker.innerHTML = data.data.map(g =>
-                `<img src="${g.images.fixed_height_small.url}" data-gif="${g.images.fixed_height.url}" alt="${g.title}">`
-            ).join('');
-            picker.querySelectorAll('img').forEach(img => {
-                img.addEventListener('click', () => {
-                    selectedGif = img.dataset.gif;
-                    picker.querySelectorAll('img').forEach(i => i.classList.remove('selected'));
-                    img.classList.add('selected');
-                    document.getElementById('gif-selected-preview').style.display = 'block';
-                    document.getElementById('gif-preview-img').src = selectedGif;
+            try {
+                const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=pg`);
+                const data = await res.json();
+                const picker = document.getElementById('gif-picker');
+                picker.innerHTML = data.data.map(g =>
+                    `<img src="${g.images.fixed_height_small.url}" data-gif="${g.images.fixed_height.url}" alt="${g.title}">`
+                ).join('');
+                picker.querySelectorAll('img').forEach(img => {
+                    img.addEventListener('click', () => {
+                        selectedGif = img.dataset.gif;
+                        picker.querySelectorAll('img').forEach(i => i.classList.remove('selected'));
+                        img.classList.add('selected');
+                        document.getElementById('gif-selected-preview').style.display = 'block';
+                        document.getElementById('gif-preview-img').src = selectedGif;
+                    });
                 });
-            });
+            } catch(e) { console.error('GIF search error:', e); }
         }
 
         document.getElementById('gif-search-btn').addEventListener('click', () => {
