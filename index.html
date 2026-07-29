@@ -301,7 +301,7 @@
         <div class="card">
             <div class="wishes-title">Dodaj zyczenia / komentarz</div>
             <form class="wish-form" id="wish-form">
-                <input type="text" id="wish-name" placeholder="Twoje imie" required>
+                <input type="text" id="wish-name" placeholder="Twoje imie">
                 <textarea id="wish-text" placeholder="Zyczenia, ulubiona pizza, cokolwiek..."></textarea>
                 <p style="font-size:0.8rem; color:#888; margin:-2px 0;">Wyszukaj GIF (opcjonalnie):</p>
                 <div class="gif-search">
@@ -314,7 +314,7 @@
                     <img id="gif-preview-img" style="max-width:80px; border-radius:6px;">
                     <button type="button" id="gif-clear" style="display:block; margin:4px auto; background:none; border:none; color:#dc2626; cursor:pointer; font-size:0.75rem;">Usun</button>
                 </div>
-                <button type="submit" class="btn">Dodaj zyczenia</button>
+                <button type="button" class="btn" id="submit-wish-btn">Dodaj zyczenia</button>
             </form>
             <div class="wishes-list" id="wishes-list"></div>
         </div>
@@ -400,8 +400,7 @@
             renderWishes(wishes);
         });
 
-        document.getElementById('wish-form').addEventListener('submit', e => {
-            e.preventDefault();
+        document.getElementById('submit-wish-btn').addEventListener('click', () => {
             const name = document.getElementById('wish-name').value.trim();
             const text = document.getElementById('wish-text').value.trim();
             if (!name) { alert('Wpisz imie!'); return; }
@@ -412,6 +411,7 @@
                 selectedGif = '';
                 document.getElementById('gif-selected-preview').style.display = 'none';
                 document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
+                alert('Dodano!');
               })
               .catch(err => alert('Blad zapisu: ' + err.message));
         });
