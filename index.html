@@ -24,16 +24,16 @@
         }
         .page-header h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
+            font-size: 2.6rem;
             font-weight: 700;
             color: #fff;
             letter-spacing: -0.5px;
         }
 
         .container {
-            max-width: 640px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 24px 16px 40px;
+            padding: 20px 12px 40px;
         }
 
         .card {
@@ -217,38 +217,39 @@
         }
         .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
 
-        /* Wishes grid */
+        /* Wishes - masonry like CollectionPot */
         .wishes-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            columns: 3;
+            column-gap: 14px;
         }
         .wish-card {
-            background: #fff8f0;
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid #fed7aa;
+            background: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            break-inside: avoid;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             word-break: break-word;
         }
-        .wish-card .wish-author { font-weight: 700; color: #ea580c; font-size: 0.8rem; margin-bottom: 3px; }
-        .wish-card .wish-text { color: #555; line-height: 1.4; font-size: 0.78rem; }
-        .wish-card .wish-gif { margin-top: 6px; border-radius: 6px; max-width: 100%; }
+        .wish-card .wish-author { font-weight: 700; color: #ea580c; font-size: 0.88rem; margin-top: 10px; }
+        .wish-card .wish-text { color: #333; line-height: 1.6; font-size: 0.9rem; }
+        .wish-card .wish-gif { margin-top: 10px; border-radius: 8px; max-width: 100%; display: block; }
 
         @media (max-width: 600px) {
             .hero-row { flex-direction: column; }
             .hero-image { flex: none; width: 100%; max-width: 220px; margin: 0 auto; }
-            .wishes-list { grid-template-columns: repeat(2, 1fr); }
+            .wishes-list { columns: 2; }
             .card { padding: 20px; }
-            .page-header h1 { font-size: 1.3rem; }
+            .page-header h1 { font-size: 1.8rem; }
         }
         @media (max-width: 400px) {
-            .wishes-list { grid-template-columns: 1fr; }
+            .wishes-list { columns: 1; }
         }
     </style>
 </head>
 <body>
     <div class="page-header">
-        <h1>Zrzutka na 30-stke Bogusia</h1>
+        <h1>Zrzutka na 30-stkę Bogusia</h1>
     </div>
 
     <div class="container">
@@ -380,9 +381,9 @@
         function renderWishes(wishes) {
             document.getElementById('wishes-list').innerHTML = wishes.map(w => `
                 <div class="wish-card">
-                    <div class="wish-author">${escHtml(w.name)}</div>
                     ${w.text ? `<div class="wish-text">${escHtml(w.text)}</div>` : ''}
                     ${w.gif ? `<img class="wish-gif" src="${escHtml(w.gif)}" alt="gif">` : ''}
+                    <div class="wish-author">${escHtml(w.name)}</div>
                 </div>
             `).join('');
         }
