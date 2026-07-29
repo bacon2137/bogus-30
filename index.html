@@ -3,266 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎂 Zrzutka na 30. urodziny Bogusia!</title>
+    <title>Zrzutka na 30. urodziny Bogusia!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: #f5f0fa;
             min-height: 100vh;
-            padding: 20px;
             color: #333;
         }
+        .hero {
+            background: linear-gradient(135deg, #1a0533 0%, #3d1f6d 50%, #764ba2 100%);
+            padding: 60px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+            animation: shimmer 8s ease-in-out infinite;
+        }
+        @keyframes shimmer { 0%,100% { transform: translateX(-20%); } 50% { transform: translateX(20%); } }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: white;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .hero .subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            font-weight: 400;
+            position: relative;
+        }
+        .hero .age-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            color: #1a0533;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 16px;
+            position: relative;
+        }
         .container {
-            max-width: 700px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
         }
         .card {
             background: white;
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(118,75,162,0.08);
         }
-        h1 {
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #2d1354;
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 2rem;
+        }
+
+        /* Photo gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
             margin-bottom: 8px;
+        }
+        .photo-gallery img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .photo-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(118,75,162,0.25);
+        }
+        .photo-caption {
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* Gift section */
+        .gift-section {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .gift-image {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+        .gift-image img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .gift-details { flex: 1; min-width: 240px; }
+        .gift-details h3 {
+            font-size: 1.1rem;
+            color: #2d1354;
+            margin-bottom: 8px;
+        }
+        .gift-details p { color: #666; line-height: 1.6; font-size: 0.95rem; }
+        .gift-details .price {
+            display: inline-block;
+            margin-top: 12px;
+            background: #f8f4ff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
             color: #764ba2;
         }
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 24px;
-            font-size: 1.1rem;
-        }
-        .gift-info {
-            background: #f8f4ff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-        .gift-info h2 { color: #764ba2; margin-bottom: 8px; font-size: 1.2rem; }
-        .gift-info p { color: #555; line-height: 1.6; }
-        .progress-section { margin: 24px 0; }
+
+        /* Progress */
+        .progress-section { margin: 28px 0 8px; }
         .progress-label {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: #555;
+            font-size: 0.95rem;
         }
         .progress-bar {
             background: #e9e3f0;
             border-radius: 20px;
-            height: 32px;
+            height: 28px;
             overflow: hidden;
-            position: relative;
         }
         .progress-fill {
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #667eea, #764ba2, #f6d365);
+            background-size: 200% 100%;
+            animation: progressShine 3s ease-in-out infinite;
             height: 100%;
             border-radius: 20px;
-            transition: width 0.5s ease;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
-            min-width: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            min-width: 44px;
         }
-        .payment-section {
+        @keyframes progressShine { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .deadline {
             text-align: center;
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-top: 12px;
         }
-        .payment-section h2 {
-            color: #764ba2;
-            margin-bottom: 16px;
-        }
+
+        /* Payment */
         .blik-box {
-            background: linear-gradient(135deg, #e8153a, #ff4d6d);
+            background: linear-gradient(135deg, #d4145a, #ff4d6d);
             color: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 16px 0;
-        }
-        .blik-box .phone {
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin: 8px 0;
-        }
-        .blik-box p { opacity: 0.9; }
-        .wishes-section h2 {
-            color: #764ba2;
-            margin-bottom: 16px;
+            border-radius: 16px;
+            padding: 28px;
+            margin: 20px 0;
             text-align: center;
+            box-shadow: 0 8px 24px rgba(212,20,90,0.2);
         }
+        .blik-box .label { opacity: 0.9; font-size: 0.95rem; }
+        .blik-box .phone {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            font-family: 'Inter', monospace;
+        }
+        .blik-box .hint { opacity: 0.8; font-size: 0.85rem; }
+        .payment-note {
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+
+        /* Wishes form */
         .wish-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 14px;
+            margin-bottom: 28px;
         }
         .wish-form input, .wish-form textarea {
-            padding: 12px 16px;
-            border: 2px solid #e9e3f0;
-            border-radius: 10px;
+            padding: 14px 18px;
+            border: 2px solid #eae5f0;
+            border-radius: 12px;
             font-size: 1rem;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
         .wish-form input:focus, .wish-form textarea:focus {
             outline: none;
             border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(118,75,162,0.1);
         }
         .wish-form textarea { resize: vertical; min-height: 80px; }
+        .gif-search {
+            display: flex;
+            gap: 8px;
+        }
+        .gif-search input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #eae5f0;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        .gif-search input:focus { outline: none; border-color: #764ba2; box-shadow: 0 0 0 3px rgba(118,75,162,0.1); }
+        .btn-gif-search {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-gif-search:hover { opacity: 0.85; }
         .gif-picker {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 12px;
+            margin: 8px 0;
         }
         .gif-picker img {
             width: 80px;
             height: 80px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             border: 3px solid transparent;
             transition: border-color 0.2s, transform 0.2s;
         }
-        .gif-picker img:hover { transform: scale(1.05); }
-        .gif-picker img.selected { border-color: #764ba2; }
-        .gif-search {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .gif-search input {
-            flex: 1;
-            padding: 10px 14px;
-            border: 2px solid #e9e3f0;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-        .gif-search input:focus { outline: none; border-color: #764ba2; }
-        .btn-gif-search {
-            background: #764ba2;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .btn-gif-search:hover { opacity: 0.9; }
+        .gif-picker img:hover { transform: scale(1.08); }
+        .gif-picker img.selected { border-color: #764ba2; box-shadow: 0 0 0 2px rgba(118,75,162,0.3); }
         .btn {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.3px;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(118,75,162,0.4); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(118,75,162,0.35); }
         .wishes-list { display: flex; flex-direction: column; gap: 16px; }
         .wish-card {
-            background: #f8f4ff;
-            border-radius: 12px;
-            padding: 16px;
+            background: #faf8fd;
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid #ece7f3;
         }
         .wish-card .wish-author {
             font-weight: 700;
             color: #764ba2;
             margin-bottom: 6px;
+            font-size: 0.95rem;
         }
-        .wish-card .wish-text { color: #555; line-height: 1.5; }
+        .wish-card .wish-text { color: #555; line-height: 1.6; font-size: 0.95rem; }
         .wish-card .wish-gif {
-            margin-top: 10px;
-            border-radius: 8px;
-            max-width: 150px;
+            margin-top: 12px;
+            border-radius: 10px;
+            max-width: 180px;
         }
-        .deadline {
+        .footer {
             text-align: center;
-            color: #999;
-            font-size: 0.9rem;
-            margin-top: 8px;
+            padding: 24px;
+            color: #bbb;
+            font-size: 0.8rem;
         }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+
         @media (max-width: 600px) {
-            body { padding: 12px; }
-            .card { padding: 20px; }
-            h1 { font-size: 1.5rem; }
-            .blik-box .phone { font-size: 1.4rem; }
+            .hero { padding: 40px 16px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 0 12px; }
+            .card { padding: 24px; }
+            .gift-section { flex-direction: column; text-align: center; }
+            .gift-image { flex: none; }
+            .blik-box .phone { font-size: 1.5rem; }
+            .photo-gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+            .photo-gallery img { height: 100px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>🎉 Zrzutka na 30-stkę Bogusia!</h1>
-            <p class="subtitle">Zbieramy na prezent urodzinowy – dołącz się!</p>
+    <div class="hero">
+        <h1>Zrzutka na urodziny Bogusia</h1>
+        <p class="subtitle">Zbieramy na prezent, ktory pokochasz... znaczy, ktory pokoca!</p>
+        <span class="age-badge">30 lat!</span>
+    </div>
 
-            <div class="gift-info">
-                <h2>🎁 Co kupujemy?</h2>
-                <p><strong>Kenwood Titanium Chef Baker XL KVL85.004SI</strong><br>+ maszynka do mięsa</p>
-                <p style="margin-top:8px; font-size:0.9rem; color:#888;">Cel: ~2500 zł</p>
+    <div class="container">
+        <!-- Photo Gallery -->
+        <div class="card">
+            <h2 class="section-title">Nasz kucharz w akcji</h2>
+            <div class="photo-gallery">
+                <img src="img/IMG_1666.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_5201.JPG" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_1256.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_2773.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_9724.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_5012.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_0104-Enhanced-NR_Original.JPG" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_6959_Original.JPG" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_0506.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_6647.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_2628.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_9151.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/WhatsApp Image 2026-07-27 at 21.47.03.jpeg" alt="Bogus gotuje" loading="lazy">
+                <img src="img/IMG_3176.jpeg" alt="Bogus gotuje" loading="lazy">
+            </div>
+            <p class="photo-caption">Bogus i jego milosc do gotowania... czas na upgrade sprzetu!</p>
+        </div>
+
+        <!-- Gift Info -->
+        <div class="card">
+            <h2 class="section-title">Co kupujemy?</h2>
+            <div class="gift-section">
+                <div class="gift-image">
+                    <img src="https://www.kenwood-world.com/medias/KVL85.004SI-front-800x600.png?context=bWFzdGVyfGltYWdlc3wxNTk5OTl8aW1hZ2UvcG5nfGFHWXlMMmhsT0M4eE5EQTBOVFkyTURnek1qZzRNaTlMVmt3NE5TNHdNRFJUU1Y5bWNtOXVkRjg0TURCNk5qQXdMbkJ1Wnd8YzRhZjgxMjRjNjg5N2IyZTQzMTQ2OGU3MDgwN2RhMzIyMTEzYjVjMjFhNWI3MDE4OGRiYWIzMzUwNjZkMzI0Yw" alt="Kenwood Titanium Chef Baker XL">
+                </div>
+                <div class="gift-details">
+                    <h3>Kenwood Titanium Chef Baker XL</h3>
+                    <p>Model KVL85.004SI — profesjonalny robot kuchenny, ktory sprawi, ze Bogus bedzie mogl realizowac swoje kulinarne marzenia na najwyzszym poziomie.</p>
+                    <p style="margin-top:8px;">+ <strong>maszynka do miesa</strong> — bo Bogus kocha mieso!</p>
+                    <span class="price">Cel: ~2 500 zl</span>
+                </div>
             </div>
 
             <div class="progress-section">
                 <div class="progress-label">
                     <span>Zebrano</span>
-                    <span id="progress-text">0 / 2500 zł</span>
+                    <span id="progress-text">0 / 2500 zl</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-fill" style="width: 0%;">0%</div>
                 </div>
             </div>
-            <p class="deadline">⏰ Zbiórka trwa do końca września 2026</p>
+            <p class="deadline">Zbiorka trwa do konca wrzesnia 2026</p>
         </div>
 
-        <div class="card payment-section">
-            <h2>💸 Jak wpłacić?</h2>
+        <!-- Payment -->
+        <div class="card">
+            <h2 class="section-title">Jak wplacic?</h2>
             <div class="blik-box">
-                <p>Wyślij przelew BLIK na numer:</p>
+                <p class="label">Wyslij przelew BLIK na numer:</p>
                 <div class="phone">+48 600 979 454</div>
-                <p style="margin-top:8px; font-size:0.85rem;">W tytule wpisz swoje imię 😊</p>
+                <p class="hint">W tytule wpisz swoje imie</p>
             </div>
-            <p style="color:#888; font-size:0.85rem; margin-top:12px;">Wpłacasz dowolną kwotę – liczy się każda złotówka!</p>
+            <p class="payment-note">Wplacasz dowolna kwote — liczy sie kazda zlotowka!</p>
         </div>
 
-        <div class="card wishes-section">
-            <h2>✍️ Dodaj życzenia / komentarz</h2>
+        <!-- Wishes -->
+        <div class="card">
+            <h2 class="section-title">Dodaj zyczenia</h2>
             <form class="wish-form" id="wish-form">
-                <input type="text" id="wish-name" placeholder="Twoje imię" required>
-                <textarea id="wish-text" placeholder="Życzenia, wiadomość, cokolwiek chcesz 🙂"></textarea>
-                <p style="font-size:0.9rem; color:#666;">Wyszukaj GIF (opcjonalnie):</p>
+                <input type="text" id="wish-name" placeholder="Twoje imie" required>
+                <textarea id="wish-text" placeholder="Zyczenia, wiadomosc, cokolwiek chcesz..."></textarea>
+                <p style="font-size:0.9rem; color:#666; margin-bottom:-6px;">Wyszukaj GIF (opcjonalnie):</p>
                 <div class="gif-search">
-                    <input type="text" id="gif-search-input" placeholder="Szukaj GIF np. urodziny, taniec, party...">
+                    <input type="text" id="gif-search-input" placeholder="Szukaj np. urodziny, taniec, party...">
                     <button type="button" class="btn-gif-search" id="gif-search-btn">Szukaj</button>
                 </div>
                 <div class="gif-picker" id="gif-picker"></div>
-                <div id="gif-selected-preview" style="display:none; margin:8px 0; text-align:center;">
+                <div id="gif-selected-preview" style="display:none; margin:4px 0; text-align:center;">
                     <p style="font-size:0.85rem; color:#764ba2; margin-bottom:4px;">Wybrany GIF:</p>
                     <img id="gif-preview-img" style="max-width:120px; border-radius:8px;">
-                    <button type="button" id="gif-clear" style="display:block; margin:6px auto; background:none; border:none; color:#e8153a; cursor:pointer; font-size:0.85rem;">✕ Usuń</button>
+                    <button type="button" id="gif-clear" style="display:block; margin:6px auto; background:none; border:none; color:#d4145a; cursor:pointer; font-size:0.85rem;">Usun</button>
                 </div>
-                <button type="submit" class="btn">Dodaj życzenia 🎈</button>
+                <button type="submit" class="btn">Dodaj zyczenia</button>
             </form>
             <div class="wishes-list" id="wishes-list"></div>
         </div>
     </div>
 
+    <p class="footer">Zrzutka na 30. urodziny Bogusia — z miloscia od przyjaciol</p>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script>
-        // Firebase config
+        // Firebase
         firebase.initializeApp({
             apiKey: "AIzaSyC0faHVaXm17aXOKHUlhqeLCPYoJbZ4a04",
             authDomain: "bogus-30.firebaseapp.com",
@@ -274,18 +451,29 @@
         });
         const db = firebase.database();
 
-        // ===== PROGRESS - UPDATE MANUALLY HERE =====
-        const collected = 0; // <-- ZMIEŃ TĘ WARTOŚĆ gdy ktoś wpłaci
+        // ===== PROGRESS - UPDATE MANUALLY =====
+        const collected = 0; // <-- ZMIEN gdy ktos wplaci
         const goal = 2500;
-        // ============================================
+        // =======================================
 
         const pct = Math.min(Math.round((collected / goal) * 100), 100);
         document.getElementById('progress-fill').style.width = pct + '%';
         document.getElementById('progress-fill').textContent = pct + '%';
-        document.getElementById('progress-text').textContent = collected + ' / ' + goal + ' zł';
+        document.getElementById('progress-text').textContent = collected + ' / ' + goal + ' zl';
+
+        // Photo lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        document.querySelectorAll('.photo-gallery img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+        lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
 
         // GIF search via GIPHY
-        const GIPHY_KEY = 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65'; // public beta key
+        const GIPHY_KEY = 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65';
         let selectedGif = '';
 
         async function searchGifs(query) {
@@ -320,10 +508,9 @@
             document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
         });
 
-        // Load trending on start
         searchGifs('happy birthday');
 
-        // Wishes - Firebase Realtime Database
+        // Wishes
         function escHtml(s) {
             return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         }
@@ -339,7 +526,6 @@
             `).join('');
         }
 
-        // Listen for wishes in real-time
         db.ref('wishes').orderByChild('timestamp').on('value', snapshot => {
             const wishes = [];
             snapshot.forEach(child => wishes.unshift(child.val()));
@@ -351,12 +537,7 @@
             const name = document.getElementById('wish-name').value.trim();
             const text = document.getElementById('wish-text').value.trim();
             if (!name) return;
-            db.ref('wishes').push({
-                name,
-                text,
-                gif: selectedGif,
-                timestamp: Date.now()
-            });
+            db.ref('wishes').push({ name, text, gif: selectedGif, timestamp: Date.now() });
             document.getElementById('wish-name').value = '';
             document.getElementById('wish-text').value = '';
             selectedGif = '';
