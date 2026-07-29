@@ -394,16 +394,22 @@
             `).join('');
         }
 
-        db.ref('wishes').on('value', snapshot => {
-            const wishes = [];
-            snapshot.forEach(child => wishes.unshift(child.val()));
-            renderWishes(wishes);
-        }, err => { console.error('DB read error:', err); });
+        function loadWishes() {
+            fetch('https://bogus-30-default-rtdb.europe-west1.firebasedatabase.app/wishes.json')
+                .then(r => r.json())
+                .then(data => {
+                    if (!data) { renderWishes([]); return; }
+                    const wishes = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+                    renderWishes(wishes);
+                })
+                .catch(err => console.error('Load wishes error:', err));
+        }
+        loadWishes();
 
         document.getElementById('submit-wish-btn').addEventListener('click', () => {
             const name = document.getElementById('wish-name').value.trim();
             const text = document.getElementById('wish-text').value.trim();
-            if (!name) { alert('Wpisz imie!'); return; }
+            if (!name) { alert('Wpisz imię!'); return; }
             db.ref('wishes').push({ name, text, gif: selectedGif, timestamp: Date.now() })
               .then(() => {
                 document.getElementById('wish-name').value = '';
@@ -411,9 +417,9 @@
                 selectedGif = '';
                 document.getElementById('gif-selected-preview').style.display = 'none';
                 document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
-                alert('Dodano!');
+                loadWishes();
               })
-              .catch(err => alert('Blad zapisu: ' + err.message));
+              .catch(err => alert('Błąd zapisu: ' + err.message));
         });
     </script>
 </body>
