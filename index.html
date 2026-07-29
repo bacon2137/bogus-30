@@ -48,16 +48,16 @@
         /* Hero: image + text side by side */
         .hero-row {
             display: flex;
-            gap: 28px;
+            gap: 20px;
             align-items: stretch;
         }
         .hero-image {
-            flex: 0 0 45%;
+            flex: 0 0 40%;
         }
         .hero-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 12px;
         }
         .hero-text {
@@ -69,7 +69,7 @@
         .hero-text p {
             color: #333;
             line-height: 1.8;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
         }
 
         /* Progress */
@@ -280,33 +280,32 @@
             <div class="progress-section">
                 <div class="progress-header">
                     <span class="progress-amount" id="progress-amount">0 zl</span>
-                    <span class="progress-goal">cel: 2 500 zl</span>
+                    <span class="progress-goal">cel: 2 000 zł</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
                 </div>
-                <p class="progress-sub">Kenwood Titanium Chef Baker XL + maszynka do miesa</p>
+                <p class="progress-sub">Kenwood Titanium Chef Baker XL</p>
             </div>
         </div>
 
         <div class="card">
-            <div class="payment-title">Jak wplacic?</div>
+            <div class="payment-title">Jak wpłacić?</div>
             <div class="blik-box">
-                <img src="img/blik.jpg" alt="BLIK" style="height:28px; margin-bottom:10px;">
-                <div class="label">Na numer telefonu</div>
+                <div class="label"><img src="img/blik.jpg" alt="BLIK" style="height:22px; vertical-align:middle; margin-right:6px;">Na numer telefonu</div>
                 <div class="phone">+48 600 979 454</div>
-                <div class="hint">W tytule wpisz swoje imie</div>
+                <div class="hint">W tytule wpisz swoje imię</div>
             </div>
         </div>
 
         <div class="card">
-            <div class="wishes-title">Dodaj zyczenia / komentarz</div>
+            <div class="wishes-title">Dodaj życzenia / komentarz</div>
             <form class="wish-form" id="wish-form">
-                <input type="text" id="wish-name" placeholder="Twoje imie">
-                <textarea id="wish-text" placeholder="Zyczenia, ulubiona pizza, cokolwiek..."></textarea>
+                <input type="text" id="wish-name" placeholder="Twoje imię">
+                <textarea id="wish-text" placeholder="Życzenia, ulubiona pizza, cokolwiek..."></textarea>
                 <p style="font-size:0.8rem; color:#888; margin:-2px 0;">Wyszukaj GIF (opcjonalnie):</p>
                 <div class="gif-search">
-                    <input type="text" id="gif-search-input" placeholder="np. urodziny, pizza, taniec...">
+                    <input type="text" id="gif-search-input" placeholder="np. urodziny, pizza, gothic...">
                     <button type="button" class="btn-gif-search" id="gif-search-btn">Szukaj</button>
                 </div>
                 <div class="gif-picker" id="gif-picker"></div>
@@ -315,7 +314,7 @@
                     <img id="gif-preview-img" style="max-width:80px; border-radius:6px;">
                     <button type="button" id="gif-clear" style="display:block; margin:4px auto; background:none; border:none; color:#dc2626; cursor:pointer; font-size:0.75rem;">Usun</button>
                 </div>
-                <button type="button" class="btn" id="submit-wish-btn">Dodaj zyczenia</button>
+                <button type="button" class="btn" id="submit-wish-btn">Dodaj życzenia</button>
             </form>
             <div class="wishes-list" id="wishes-list"></div>
         </div>
@@ -337,12 +336,12 @@
 
         // ===== PROGRESS =====
         const collected = 0; // <-- ZMIEN gdy ktos wplaci
-        const goal = 2500;
+        const goal = 2000;
         // ====================
 
         const pct = Math.min(Math.round((collected / goal) * 100), 100);
         document.getElementById('progress-fill').style.width = pct + '%';
-        document.getElementById('progress-amount').textContent = collected + ' zl';
+        document.getElementById('progress-amount').textContent = collected + ' zł';
 
         // GIF search
         const GIPHY_KEY = 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65';
@@ -350,7 +349,7 @@
 
         async function searchGifs(query) {
             try {
-                const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=pg`);
+                const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=9&rating=pg`);
                 const data = await res.json();
                 const picker = document.getElementById('gif-picker');
                 picker.innerHTML = data.data.map(g =>
