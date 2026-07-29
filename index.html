@@ -292,7 +292,7 @@
         <div class="card">
             <div class="payment-title">Jak wplacic?</div>
             <div class="blik-box">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/BLIK_logo.svg/200px-BLIK_logo.svg.png" alt="BLIK" style="height:28px; margin-bottom:10px;">
+                <img src="img/blik.jpg" alt="BLIK" style="height:28px; margin-bottom:10px;">
                 <div class="label">Na numer telefonu</div>
                 <div class="phone">+48 600 979 454</div>
                 <div class="hint">W tytule wpisz swoje imie</div>
@@ -395,11 +395,11 @@
             `).join('');
         }
 
-        db.ref('wishes').orderByChild('timestamp').on('value', snapshot => {
+        db.ref('wishes').on('value', snapshot => {
             const wishes = [];
             snapshot.forEach(child => wishes.unshift(child.val()));
             renderWishes(wishes);
-        });
+        }, err => { console.error('DB read error:', err); });
 
         document.getElementById('submit-wish-btn').addEventListener('click', () => {
             const name = document.getElementById('wish-name').value.trim();
