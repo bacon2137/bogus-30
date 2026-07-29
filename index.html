@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Zrzutka na 30. urodziny Bogusia!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #764ba2;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+        }
+        .gift-info {
+            background: #f8f4ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .gift-info h2 { color: #764ba2; margin-bottom: 8px; font-size: 1.2rem; }
+        .gift-info p { color: #555; line-height: 1.6; }
+        .progress-section { margin: 24px 0; }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        .progress-bar {
+            background: #e9e3f0;
+            border-radius: 20px;
+            height: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            min-width: 40px;
+        }
+        .payment-section {
+            text-align: center;
+        }
+        .payment-section h2 {
+            color: #764ba2;
+            margin-bottom: 16px;
+        }
+        .blik-box {
+            background: linear-gradient(135deg, #e8153a, #ff4d6d);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        .blik-box .phone {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 8px 0;
+        }
+        .blik-box p { opacity: 0.9; }
+        .wishes-section h2 {
+            color: #764ba2;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .wish-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .wish-form input, .wish-form textarea {
+            padding: 12px 16px;
+            border: 2px solid #e9e3f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .wish-form input:focus, .wish-form textarea:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+        .wish-form textarea { resize: vertical; min-height: 80px; }
+        .gif-picker {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .gif-picker img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .gif-picker img:hover { transform: scale(1.05); }
+        .gif-picker img.selected { border-color: #764ba2; }
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(118,75,162,0.4); }
+        .wishes-list { display: flex; flex-direction: column; gap: 16px; }
+        .wish-card {
+            background: #f8f4ff;
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .wish-card .wish-author {
+            font-weight: 700;
+            color: #764ba2;
+            margin-bottom: 6px;
+        }
+        .wish-card .wish-text { color: #555; line-height: 1.5; }
+        .wish-card .wish-gif {
+            margin-top: 10px;
+            border-radius: 8px;
+            max-width: 150px;
+        }
+        .deadline {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            .blik-box .phone { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>🎉 Zrzutka na 30-stkę Bogusia!</h1>
+            <p class="subtitle">Zbieramy na prezent urodzinowy – dołącz się!</p>
+
+            <div class="gift-info">
+                <h2>🎁 Co kupujemy?</h2>
+                <p><strong>Kenwood Titanium Chef Baker XL KVL85.004SI</strong><br>+ maszynka do mięsa</p>
+                <p style="margin-top:8px; font-size:0.9rem; color:#888;">Cel: ~2500 zł</p>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Zebrano</span>
+                    <span id="progress-text">0 / 2500 zł</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%;">0%</div>
+                </div>
+            </div>
+            <p class="deadline">⏰ Zbiórka trwa do końca września 2026</p>
+        </div>
+
+        <div class="card payment-section">
+            <h2>💸 Jak wpłacić?</h2>
+            <div class="blik-box">
+                <p>Wyślij przelew BLIK na numer:</p>
+                <div class="phone">+48 600 979 454</div>
+                <p style="margin-top:8px; font-size:0.85rem;">W tytule wpisz swoje imię 😊</p>
+            </div>
+            <p style="color:#888; font-size:0.85rem; margin-top:12px;">Wpłacasz dowolną kwotę – liczy się każda złotówka!</p>
+        </div>
+
+        <div class="card wishes-section">
+            <h2>✍️ Dodaj życzenia / komentarz</h2>
+            <form class="wish-form" id="wish-form">
+                <input type="text" id="wish-name" placeholder="Twoje imię" required>
+                <textarea id="wish-text" placeholder="Życzenia, wiadomość, cokolwiek chcesz 🙂"></textarea>
+                <p style="font-size:0.9rem; color:#666;">Wybierz GIF (opcjonalnie):</p>
+                <div class="gif-picker" id="gif-picker">
+                    <img src="https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif" alt="party" data-gif="https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif">
+                    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="cake" data-gif="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+                    <img src="https://media.giphy.com/media/artj92V8o75VPL7AeQ/giphy.gif" alt="cheers" data-gif="https://media.giphy.com/media/artj92V8o75VPL7AeQ/giphy.gif">
+                    <img src="https://media.giphy.com/media/BPJmthQ3YRwD6QqcVD/giphy.gif" alt="birthday" data-gif="https://media.giphy.com/media/BPJmthQ3YRwD6QqcVD/giphy.gif">
+                    <img src="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif" alt="confetti" data-gif="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif">
+                </div>
+                <button type="submit" class="btn">Dodaj życzenia 🎈</button>
+            </form>
+            <div class="wishes-list" id="wishes-list"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script>
+        // Firebase config
+        firebase.initializeApp({
+            apiKey: "AIzaSyC0faHVaXm17aXOKHUlhqeLCPYoJbZ4a04",
+            authDomain: "bogus-30.firebaseapp.com",
+            databaseURL: "https://bogus-30-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "bogus-30",
+            storageBucket: "bogus-30.firebasestorage.app",
+            messagingSenderId: "261815257341",
+            appId: "1:261815257341:web:bafd029ddca3884d9e9694"
+        });
+        const db = firebase.database();
+
+        // ===== PROGRESS - UPDATE MANUALLY HERE =====
+        const collected = 0; // <-- ZMIEŃ TĘ WARTOŚĆ gdy ktoś wpłaci
+        const goal = 2500;
+        // ============================================
+
+        const pct = Math.min(Math.round((collected / goal) * 100), 100);
+        document.getElementById('progress-fill').style.width = pct + '%';
+        document.getElementById('progress-fill').textContent = pct + '%';
+        document.getElementById('progress-text').textContent = collected + ' / ' + goal + ' zł';
+
+        // GIF picker
+        let selectedGif = '';
+        document.querySelectorAll('.gif-picker img').forEach(img => {
+            img.addEventListener('click', () => {
+                document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
+                if (selectedGif === img.dataset.gif) {
+                    selectedGif = '';
+                } else {
+                    img.classList.add('selected');
+                    selectedGif = img.dataset.gif;
+                }
+            });
+        });
+
+        // Wishes - Firebase Realtime Database
+        function escHtml(s) {
+            return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function renderWishes(wishes) {
+            const list = document.getElementById('wishes-list');
+            list.innerHTML = wishes.map(w => `
+                <div class="wish-card">
+                    <div class="wish-author">${escHtml(w.name)}</div>
+                    ${w.text ? `<div class="wish-text">${escHtml(w.text)}</div>` : ''}
+                    ${w.gif ? `<img class="wish-gif" src="${escHtml(w.gif)}" alt="gif">` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Listen for wishes in real-time
+        db.ref('wishes').orderByChild('timestamp').on('value', snapshot => {
+            const wishes = [];
+            snapshot.forEach(child => wishes.unshift(child.val()));
+            renderWishes(wishes);
+        });
+
+        document.getElementById('wish-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const name = document.getElementById('wish-name').value.trim();
+            const text = document.getElementById('wish-text').value.trim();
+            if (!name) return;
+            db.ref('wishes').push({
+                name,
+                text,
+                gif: selectedGif,
+                timestamp: Date.now()
+            });
+            document.getElementById('wish-name').value = '';
+            document.getElementById('wish-text').value = '';
+            selectedGif = '';
+            document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
+        });
+    </script>
+</body>
+</html>
