@@ -292,9 +292,8 @@
         <div class="card">
             <div class="payment-title">Jak wpłacić?</div>
             <div class="blik-box">
-                <div class="label"><img src="img/blik.jpg" alt="BLIK" style="height:22px; vertical-align:middle; margin-right:6px;">Na numer telefonu</div>
+                <img src="img/blik.jpg" alt="BLIK" style="height:32px; margin-bottom:10px;">
                 <div class="phone">+48 600 979 454</div>
-                <div class="hint">W tytule wpisz swoje imię</div>
             </div>
         </div>
 
@@ -303,10 +302,9 @@
             <form class="wish-form" id="wish-form">
                 <input type="text" id="wish-name" placeholder="Twoje imię">
                 <textarea id="wish-text" placeholder="Życzenia, ulubiona pizza, cokolwiek..."></textarea>
-                <p style="font-size:0.8rem; color:#888; margin:-2px 0;">Wyszukaj GIF (opcjonalnie):</p>
+                <p style="font-size:0.8rem; color:#888; margin:-2px 0;">Wyszukaj GIF:</p>
                 <div class="gif-search">
                     <input type="text" id="gif-search-input" placeholder="np. urodziny, pizza, gothic...">
-                    <button type="button" class="btn-gif-search" id="gif-search-btn">Szukaj</button>
                 </div>
                 <div class="gif-picker" id="gif-picker"></div>
                 <div id="gif-selected-preview" style="display:none; text-align:center;">
@@ -335,7 +333,7 @@
         const db = firebase.database();
 
         // ===== PROGRESS =====
-        const collected = 0; // <-- ZMIEN gdy ktos wplaci
+        const collected = 67; // <-- ZMIEN gdy ktos wplaci
         const goal = 2000;
         // ====================
 
@@ -346,10 +344,11 @@
         // GIF search
         const GIPHY_KEY = 'GlVGYHkr3WSBnllca54iNt0yFbjz7L65';
         let selectedGif = '';
+        let searchTimeout = null;
 
         async function searchGifs(query) {
             try {
-                const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=9&rating=pg`);
+                const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${encodeURIComponent(query)}&limit=15&rating=pg`);
                 const data = await res.json();
                 const picker = document.getElementById('gif-picker');
                 picker.innerHTML = data.data.map(g =>
@@ -367,19 +366,43 @@
             } catch(e) { console.error('GIF search error:', e); }
         }
 
-        document.getElementById('gif-search-btn').addEventListener('click', () => {
-            const q = document.getElementById('gif-search-input').value.trim();
-            if (q) searchGifs(q);
+        // Auto-search on typing
+        document.getElementById('gif-search-input').addEventListener('input', e => {
+            clearTimeout(searchTimeout);
+            const q = e.target.value.trim();
+            if (q.length >= 2) {
+                searchTimeout = setTimeout(() => searchGifs(q), 400);
+            }
         });
-        document.getElementById('gif-search-input').addEventListener('keydown', e => {
-            if (e.key === 'Enter') { e.preventDefault(); document.getElementById('gif-search-btn').click(); }
-        });
-        document.getElementById('gif-clear').addEventListener('click', () => {
-            selectedGif = '';
-            document.getElementById('gif-selected-preview').style.display = 'none';
-            document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
-        });
-        searchGifs('happy birthday');
+
+        // Random initial GIFs from mixed categories
+        async function loadRandomGifs() {
+            const categories = ['birthday', 'pizza', 'burger', 'basketball', 'gothic'];
+            const allGifs = [];
+            for (const cat of categories) {
+                try {
+                    const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&q=${cat}&limit=6&offset=${Math.floor(Math.random()*20)}&rating=pg`);
+                    const data = await res.json();
+                    allGifs.push(...data.data);
+                } catch(e) {}
+            }
+            // Shuffle and take 15
+            const shuffled = allGifs.sort(() => Math.random() - 0.5).slice(0, 15);
+            const picker = document.getElementById('gif-picker');
+            picker.innerHTML = shuffled.map(g =>
+                `<img src="${g.images.fixed_height_small.url}" data-gif="${g.images.fixed_height.url}" alt="${g.title}">`
+            ).join('');
+            picker.querySelectorAll('img').forEach(img => {
+                img.addEventListener('click', () => {
+                    selectedGif = img.dataset.gif;
+                    picker.querySelectorAll('img').forEach(i => i.classList.remove('selected'));
+                    img.classList.add('selected');
+                    document.getElementById('gif-selected-preview').style.display = 'block';
+                    document.getElementById('gif-preview-img').src = selectedGif;
+                });
+            });
+        }
+        loadRandomGifs();
 
         // Wishes
         function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
