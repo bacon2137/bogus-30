@@ -507,13 +507,16 @@
             e.preventDefault();
             const name = document.getElementById('wish-name').value.trim();
             const text = document.getElementById('wish-text').value.trim();
-            if (!name) return;
-            db.ref('wishes').push({ name, text, gif: selectedGif, timestamp: Date.now() });
-            document.getElementById('wish-name').value = '';
-            document.getElementById('wish-text').value = '';
-            selectedGif = '';
-            document.getElementById('gif-selected-preview').style.display = 'none';
-            document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
+            if (!name) { alert('Wpisz imie!'); return; }
+            db.ref('wishes').push({ name, text, gif: selectedGif, timestamp: Date.now() })
+              .then(() => {
+                document.getElementById('wish-name').value = '';
+                document.getElementById('wish-text').value = '';
+                selectedGif = '';
+                document.getElementById('gif-selected-preview').style.display = 'none';
+                document.querySelectorAll('.gif-picker img').forEach(i => i.classList.remove('selected'));
+              })
+              .catch(err => alert('Blad zapisu: ' + err.message));
         });
     </script>
 </body>
